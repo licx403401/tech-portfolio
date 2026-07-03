@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>科技类推荐组合建议方案</title>
+<style>
+:root{
+  --bg:#f0f4f8;--card:#fff;--t1:#0f172a;--t2:#475569;--t3:#94a3b8;
+  --pri:#1e40af;--up:#dc2626;--down:#16a34a;--amb:#d97706;--bdr:#e2e8f0;
+  --shadow:0 2px 12px rgba(0,0,0,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei','PingFang SC',sans-serif;background:var(--bg);color:var(--t1);line-height:1.6;font-size:14px}
+.wrap{max-width:1200px;margin:0 auto;padding:20px 16px 64px}
+
+.hero{background:linear-gradient(135deg,#0f2856 0%,#1e40af 60%,#1d4ed8 100%);color:#fff;border-radius:16px;padding:40px 28px 32px;margin-bottom:24px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;right:-40px;top:-40px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.04)}
+.hero h1{font-size:clamp(18px,4vw,28px);font-weight:800}
+.hero .meta{display:flex;flex-wrap:wrap;gap:12px 20px;font-size:12px;opacity:.85;margin-top:10px}
+.hero .meta span{display:flex;align-items:center;gap:5px}
+.hero .update-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:20px;font-size:11px;margin-left:8px}
+
+.sec{margin-bottom:28px}
+.sec-title{font-size:17px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:2px solid #dde4ef}
+.sec-title .num{width:26px;height:26px;border-radius:8px;background:var(--pri);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+
+/* ── Tab 切换栏 ── */
+.tab-bar{display:flex;gap:0;margin-bottom:18px;border-radius:12px;overflow:hidden;border:1px solid var(--bdr);background:var(--card);box-shadow:var(--shadow)}
+.tab-btn{flex:1;padding:13px 20px;font-size:14px;font-weight:700;border:none;cursor:pointer;background:#f8fafc;color:var(--t2);transition:all .2s;font-family:inherit;white-space:nowrap}
+.tab-btn.active{background:var(--pri);color:#fff}
+.tab-btn:hover:not(.active){background:#e8edf5}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* ── Full-width Portfolio Cards ── */
+.pf-card{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--bdr)}
+.pf-header{padding:22px 24px 18px;color:#fff;position:relative;overflow:hidden}
+.pf-header.act{background:linear-gradient(135deg,#0f2856 0%,#1e40af 100%)}
+.pf-header.agg{background:linear-gradient(135deg,#450a0a 0%,#991b1b 100%)}
+.pf-header::after{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.04)}
+.pf-h-top{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.pf-h-icon{font-size:22px;line-height:0}
+.pf-h-title{font-size:17px;font-weight:800}
+.pf-h-desc{font-size:12px;color:rgba(255,255,255,.7);margin-left:2px}
+.pf-h-main-row{display:flex;align-items:flex-end;gap:28px;flex-wrap:wrap}
+.pf-h-ytd{flex-shrink:0}
+.pf-h-ytd-rec{flex-shrink:0}
+.pf-h-ytd-label{font-size:12px;opacity:.75;margin-bottom:2px}
+.pf-h-ytd-num{font-size:44px;font-weight:900;line-height:1;letter-spacing:-2px}
+.pf-h-ytd-num-rec{font-size:32px;font-weight:800;line-height:1;letter-spacing:-1px;opacity:.95}
+.pf-h-bench{flex:1;min-width:180px;font-size:13px;opacity:.9;line-height:1.8}
+.pf-h-excess{display:inline-block;background:rgba(255,255,255,.17);padding:3px 12px;border-radius:14px;font-size:12px;font-weight:700;margin-top:2px}
+.pf-h-fyi{font-size:12px;opacity:.7;line-height:1.6;margin-top:1px}
+.pf-body{padding:18px 20px 20px}
+/* 配置思路结构化卡片 */
+.pf-config-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.pf-cfg-card{background:#fff;border:1px solid var(--bdr);border-radius:10px;overflow:hidden;transition:box-shadow .2s}
+.pf-cfg-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.pf-cfg-head{display:flex;align-items:center;gap:8px;padding:9px 14px;font-weight:700;font-size:12.5px;letter-spacing:.2px}
+.pf-cfg-head .pf-cfg-ico{font-size:15px;line-height:1;flex-shrink:0}
+.pf-cfg-head .pf-cfg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.pf-cfg-body{padding:10px 14px 12px;font-size:12.5px;line-height:1.85;color:#475569;border-top:1px solid #f1f5f9}
+/* 卡片配色变体 */
+.pf-cfg-card.ac-blue .pf-cfg-head{background:#eff6ff;color:#1e40af}
+.pf-cfg-card.ac-blue .pf-cfg-dot{background:#2563eb}
+.pf-cfg-card.ac-amber .pf-cfg-head{background:#fffbeb;color:#92400e}
+.pf-cfg-card.ac-amber .pf-cfg-dot{background:#d97706}
+.pf-cfg-card.ac-emerald .pf-cfg-head{background:#ecfdf5;color:#065f46}
+.pf-cfg-card.ac-emerald .pf-cfg-dot{background:#059669}
+/* 配置子区块 */
+.pf-sub-block{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;margin-top:12px}
+.pf-sub-title{font-weight:700;font-size:13px;color:var(--t1);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.pf-sub-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:12.5px;color:#475569;line-height:1.75;border-bottom:1px dashed #f1f5f9}
+.pf-sub-item:last-child{border-bottom:none}
+.pf-sub-num{background:var(--pri);color:#fff;min-width:18px;height:18px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:2px}
+.pf-sub-tag{display:inline-block;background:#eef2ff;color:#4338ca;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:700;margin-right:4px;white-space:nowrap}
+.pf-keyword{color:#1d4ed8;font-weight:700;background:rgba(37,99,235,.10);padding:0 3px;border-radius:3px}
+.pf-section-title{font-size:14px;font-weight:700;margin:18px 0 10px;display:flex;align-items:center;gap:6px}
+.pf-section-title:first-child{margin-top:0}
+.pf-st-icon{font-size:16px;line-height:0}
+
+/* 调仓卡片 */
+.change-block{margin-bottom:14px;border-radius:10px;overflow:hidden;border:1px solid var(--bdr)}
+.cb-head{padding:10px 16px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px}
+.cb-head.out{background:#f0fdf4;color:#166534;border-bottom:1px solid #d1fae5}
+.cb-head.in{background:#fef2f2;color:#991b1b;border-bottom:1px solid #fee2e2}
+.cb-detail{padding:12px 16px;font-size:12px;line-height:1.8;color:#475569;border-bottom:1px solid #f1f5f9}
+.cb-detail:last-child{border-bottom:none}
+.cb-detail .cb-code{font-family:'SF Mono',Consolas,monospace;font-size:11px;color:var(--t3);margin-right:6px}
+.cb-detail .cb-name{font-weight:700;color:var(--t1)}
+.cb-detail .cb-num{font-size:14px;font-weight:800;color:var(--t2);margin-right:2px}
+.cb-action{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;font-weight:700;margin:0 3px;vertical-align:middle}
+.cb-replace{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}
+.cb-new{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}
+.star{font-size:11px;line-height:0}
+
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
+.badge-in{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.badge-keep{background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0}
+.up{color:var(--up);font-weight:700}
+.down{color:var(--down);font-weight:700}
+
+/* 增强表格 */
+.ft-wrap{overflow-x:auto;margin-top:16px;border-radius:10px;border:1px solid var(--bdr)}
+.ft-wrap table{width:100%;border-collapse:collapse;font-size:12px;min-width:500px}
+.ft-wrap th{background:#f1f5f9;padding:10px 10px;text-align:left;font-size:10.5px;font-weight:700;color:var(--t2);white-space:nowrap;border-bottom:1px solid var(--bdr)}
+.ft-wrap td{padding:9px 10px;border-bottom:1px solid #f8fafc;white-space:nowrap;vertical-align:middle;font-size:12px}
+.ft-wrap tr:last-child td{border-bottom:none}
+.ft-wrap tr:hover{background:#f8fafc}
+.ft-wrap .td-code{font-family:'SF Mono',Consolas,monospace;font-size:11px;color:var(--t3)}
+.ft-wrap .td-name{font-weight:700}
+.contrib-up{color:#dc2626;font-weight:700;font-size:11.5px}
+.contrib-down{color:#16a34a;font-weight:700;font-size:11.5px}
+
+.chart-section{background:var(--card);border-radius:14px;padding:20px 18px;box-shadow:var(--shadow);border:1px solid var(--bdr);margin-bottom:20px}
+.chart-section .chart-title{font-size:15px;font-weight:700;margin-bottom:4px}
+.chart-section .chart-sub{font-size:11px;color:var(--t2);margin-bottom:16px}
+.chart-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:14px}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px}
+.legend-item .ls{width:24px;height:3px;border-radius:2px}
+.legend-item .ld{width:24px;height:0;border-top:2px dashed}
+
+.theme-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--bdr)}
+.theme-wrap table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:500px}
+.theme-wrap th{background:#f1f5f9;padding:9px 12px;text-align:left;font-size:11px;font-weight:700;color:var(--t2)}
+.theme-wrap td{padding:9px 12px;border-top:1px solid #f1f5f9}
+
+.footer{text-align:center;padding:28px 0 8px;font-size:11px;color:var(--t3);line-height:1.9;border-top:1px solid var(--bdr);margin-top:8px}
+
+#loading{text-align:center;padding:60px 20px;color:var(--t2)}
+#loading .spinner{width:36px;height:36px;border:3px solid #e2e8f0;border-top-color:var(--pri);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Date Picker ── */
+.date-picker-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.date-picker-bar label{font-size:12px;font-weight:600;color:var(--t2)}
+.date-picker-bar input[type=month]{padding:6px 10px;border:1px solid #cbd5e1;border-radius:8px;font-size:12px;font-family:inherit;color:var(--t1);background:#fff;outline:none}
+.date-picker-bar input[type=month]:focus{border-color:var(--pri);box-shadow:0 0 0 2px rgba(37,99,235,.12)}
+.date-picker-bar .sep{color:var(--t3);font-weight:700}
+.date-picker-bar button{padding:6px 16px;background:var(--pri);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+.date-picker-bar button:hover{background:#1d4ed8}
+.date-picker-bar .preset{font-size:11px;color:var(--pri);cursor:pointer;padding:4px 10px;border-radius:6px;background:#eff6ff;border:1px solid #bfdbfe;font-weight:500;white-space:nowrap}
+.date-picker-bar .preset.active{background:var(--pri);color:#fff;border-color:var(--pri)}
+.range-summary{font-size:11px;color:var(--t3);margin-top:6px}
+
+/* ── Tooltip ── */
+.cht-wrap{position:relative}
+.chart-tooltip{position:absolute;display:none;background:rgba(15,23,42,.94);color:#fff;padding:10px 14px;border-radius:10px;font-size:11.5px;pointer-events:none;z-index:20;white-space:nowrap;line-height:1.8;box-shadow:0 8px 24px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);transition:opacity .12s}
+.chart-tooltip .tt-date{font-size:10px;color:#94a3b8;margin-bottom:4px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:4px}
+.chart-tooltip .tt-row{display:flex;align-items:center;gap:6px}
+.chart-tooltip .tt-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.crosshair-line{pointer-events:none}
+.crosshair-dot{pointer-events:none;transition:cx .08s ease-out, cy .08s ease-out}
+.chart-hover-ghost{pointer-events:none;opacity:.12;mix-blend-mode:multiply}
+/* SVG responsive base */
+.chart-scroll svg{max-width:100%;height:auto;display:block}
+
+/* ── 响应式：平板 / 大屏手机 ── */
+@media(max-width:768px){
+  body{font-size:13px;line-height:1.65}
+  .wrap{padding:10px 8px 48px}
+  /* Hero */
+  .hero{padding:24px 16px 20px;border-radius:12px;margin-bottom:16px}
+  .hero h1{font-size:17px}
+  .hero .meta{font-size:11px;gap:6px 14px;margin-top:8px}
+  .hero .update-badge{font-size:10px;padding:2px 8px}
+  /* Tab */
+  .tab-bar{margin-bottom:14px;border-radius:10px}
+  .tab-btn{padding:12px 16px;font-size:13px}
+  /* Card */
+  .pf-card{border-radius:12px}
+  .pf-header{padding:16px 14px 14px}
+  .pf-h-top{margin-bottom:10px}
+  .pf-h-icon{font-size:18px}
+  .pf-h-title{font-size:15px}
+  .pf-h-desc{font-size:11px;display:block;margin-left:0;margin-top:2px}
+  .pf-h-main-row{flex-direction:column;gap:10px;align-items:stretch}
+  .pf-h-ytd-num{font-size:34px;letter-spacing:-1px}
+  .pf-h-ytd-num-rec{font-size:26px;letter-spacing:-0.5px}
+  .pf-h-bench{min-width:0;font-size:12px;line-height:1.7}
+  .pf-h-excess{font-size:11px;padding:2px 10px}
+  .pf-body{padding:14px 14px 16px}
+  /* Config cards */
+  .pf-cfg-head{padding:8px 12px;font-size:12px}
+  .pf-cfg-body{padding:10px 12px;font-size:12px;line-height:1.75}
+  .pf-sub-block{padding:10px 12px}
+  .pf-sub-item{font-size:12px;line-height:1.7}
+  .pf-section-title{font-size:13px;margin:14px 0 8px}
+  /* Rebalancing */
+  .cb-detail{padding:10px 12px;font-size:11.5px;line-height:1.7}
+  .cb-detail .cb-num{font-size:13px}
+  /* Tables */
+  .ft-wrap{margin-top:12px}
+  .ft-wrap th{padding:8px 8px;font-size:10px}
+  .ft-wrap td{padding:8px 8px;font-size:11px}
+  .ft-wrap table{min-width:480px}
+  /* Chart */
+  .chart-section{padding:14px 12px;border-radius:10px;margin-bottom:16px}
+  .chart-section .chart-title{font-size:14px}
+  .chart-section .chart-sub{font-size:10px;margin-bottom:12px}
+  .legend{gap:4px 12px;margin-bottom:10px}
+  .legend-item{font-size:10px}
+  /* Date picker */
+  .date-picker-bar{gap:6px;margin-bottom:12px}
+  .date-picker-bar label{font-size:11px}
+  .date-picker-bar input[type=date]{padding:5px 8px;font-size:11px;max-width:130px}
+  .date-picker-bar button{padding:5px 12px;font-size:11px}
+  .date-picker-bar .preset{font-size:10px;padding:3px 8px}
+  .range-summary{font-size:10px}
+  /* Footer */
+  .footer{padding:20px 0 8px;font-size:10px;line-height:1.7}
+  .sec-title{font-size:15px}
+}
+
+/* ── 响应式：小屏手机 ── */
+@media(max-width:480px){
+  .wrap{padding:8px 6px 40px}
+  .hero{padding:18px 12px 16px;border-radius:10px}
+  .hero h1{font-size:15px}
+  .hero .meta{gap:4px 10px;flex-direction:column}
+  /* Tab */
+  .tab-bar{border-radius:8px;margin-bottom:10px}
+  .tab-btn{padding:10px 12px;font-size:12px}
+  /* Card */
+  .pf-card{border-radius:10px}
+  .pf-header{padding:14px 12px 12px}
+  .pf-h-ytd-num{font-size:28px;letter-spacing:-0.5px}
+  .pf-h-ytd-num-rec{font-size:22px;letter-spacing:-0.3px}
+  .pf-h-bench{font-size:11px;line-height:1.6}
+  .pf-h-excess{font-size:10px}
+  .pf-body{padding:10px 10px 14px}
+  .pf-cfg-head{padding:7px 10px;font-size:11px}
+  .pf-cfg-body{padding:8px 10px;font-size:11.5px;line-height:1.7}
+  .pf-sub-block{padding:8px 10px}
+  .pf-sub-item{font-size:11.5px;gap:6px}
+  .cb-detail{padding:8px 10px;font-size:11px}
+  .cb-action{padding:1px 5px;font-size:10px}
+  /* Tables */
+  .ft-wrap td{padding:7px 6px;font-size:10.5px}
+  .ft-wrap th{padding:7px 6px;font-size:9.5px}
+  .ft-wrap table{min-width:420px}
+  /* Chart */
+  .chart-section{padding:10px 8px;border-radius:8px}
+  .date-picker-bar{flex-direction:column;align-items:stretch}
+  .date-picker-bar input[type=date]{max-width:100%}
+  .date-picker-bar .preset{text-align:center}
+  /* Footer */
+  .footer{font-size:9px}
+  /* Section */
+  .sec-title{font-size:14px;margin-bottom:10px}
+  .sec-title .num{width:22px;height:22px;font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+
+<div id="loading"><div class="spinner"></div>正在加载数据...</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero" style="display:none">
+  <h1>📊 科技类推荐组合建议方案 <span class="update-badge" id="updateBadge"></span></h1>
+  <div class="meta">
+    <span>📅 数据截止：<b id="dataDate">—</b></span>
+    <span>🏦 基准：沪深300 / 中证800</span>
+    <span>📋 策略：积极组合 + 激进组合</span>
+  </div>
+</div>
+
+<!-- ══ Tab 切换按钮 ══ -->
+<div class="tab-bar" style="display:none" id="tabBar">
+  <button class="tab-btn active" data-tab="active" onclick="switchTab('active')">📈 积极组合</button>
+  <button class="tab-btn" data-tab="aggressive" onclick="switchTab('aggressive')">🔥 激进组合</button>
+</div>
+
+<!-- ══ 卡片容器 ══ -->
+<div class="tab-content active" id="tabActive">
+  <div class="pf-card" id="cardActive"></div>
+</div>
+<div class="tab-content" id="tabAggressive">
+  <div class="pf-card" id="cardAggressive"></div>
+</div>
+
+<!-- ══ 三、收益回撤曲线 ══ -->
+<div class="sec" style="display:none" id="sec3">
+  <div class="sec-title"><div class="num">1</div>组合净值回撤曲线</div>
+  <div class="chart-section">
+    <div class="chart-title">累计收益率走势</div>
+    <div class="chart-sub">月度等权收益 · 基准对比沪深300 / 中证800</div>
+    <!-- 日期选择 -->
+    <div class="date-picker-bar">
+      <label>📅 起始：</label>
+      <input type="date" id="dsFrom" value="2025-06-29">
+      <span class="sep">→</span>
+      <label>截止：</label>
+      <input type="date" id="dsTo" value="2026-06-29">
+      <button onclick="applyRange()">更新图表</button>
+      <span class="preset" data-months="1" onclick="usePreset(this)">📌 近1月</span>
+      <span class="preset" data-months="3" onclick="usePreset(this)">📌 近3月</span>
+      <span class="preset" data-months="6" onclick="usePreset(this)">📌 近6月</span>
+      <span class="preset" data-months="-99" onclick="usePreset(this)">📌 今年以来</span>
+      <span class="preset" data-months="12" onclick="usePreset(this)">📌 近1年</span>
+      <span class="preset" data-months="0" onclick="usePreset(this)">📌 全部</span>
+    </div>
+    <div class="range-summary" id="rangeSummary"></div>
+    <div class="legend" id="chartLegend"></div>
+    <div class="cht-wrap chart-scroll">
+      <svg viewBox="0 0 800 320" width="800" height="320" xmlns="http://www.w3.org/2000/svg" id="mainChart"></svg>
+    </div>
+  </div>
+
+  <!-- 回撤曲线 -->
+  <div class="chart-section" style="margin-top:16px">
+    <div class="chart-title">组合最大回撤曲线</div>
+    <div class="chart-sub">选定区间内滚动回撤 · 0% = 区间新高 · 向下越深回撤越大</div>
+    <div class="legend" id="ddLegend"></div>
+    <div class="cht-wrap chart-scroll">
+      <svg viewBox="0 0 800 220" width="800" height="220" xmlns="http://www.w3.org/2000/svg" id="ddChart"></svg>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 二、行业主题分布 → 已移入各组合卡片内动态生成 ══ -->
+
+<div class="footer" style="display:none" id="footer">
+  ⚠️ 免责声明：以上分析基于历史数据的概率性统计，不构成任何投资建议。基金过往业绩不代表未来表现。<br>
+  数据来源：Wind 终端（WindPy 自动拉取）&nbsp;|&nbsp; 等权收益计算 &nbsp;|&nbsp; 更新：<span id="updateTime">—</span><br>
+  <span style="color:var(--up)">■ 红色 = 上涨</span> &nbsp;&nbsp; <span style="color:var(--down)">■ 绿色 = 下跌</span>
+</div>
+
+</div>
+
+<script>
+// ===== 数据加载 =====
+async function loadData() {
+    return {
+  "data_date": "2026-07-02",
+  "update_time": "2026-07-02",
+  "config_text": "·二季度，A股呈现历史罕见的极致分化格局。AI产业链（光模块、半导体、算力）在产业趋势与资本开支驱动下持续暴涨，科创50、创业板指大幅领涨；而消费、医药、周期等传统板块持续失血下跌。期间市场也因美伊冲突反复、美国加息预期等出现较大回调波动，但科技主线趋势反复确认，长期慢牛格局未变，建议逢低布局业绩基本面确定性更高的板块。\n·港股市场更易受到外围扰动和海外资金影响，去年以来流动性走弱，日韩股市流动性虹吸效应加剧港股弱势，恒生科技含AI量较低，左侧布局难度较大，建议等待右侧机会。\n·下阶段配置建议：1）AI产业趋势不变，科技仍为核心机会，关注后续半年报业绩披露，看好AI算力基建（光模块/存储/PCB/半导体设备）及向光纤、半导体材料、液冷材料等AI新材料扩散方向。2）医药、消费、周期制造等低估值板块左侧布局价值显现，安全边际较高。",
+  "static_info": {
+    "active_funds": [
+      {
+        "code": "012445",
+        "name": "华富新能源",
+        "positioning": "新能源",
+        "ytd": 77.5202,
+        "return_1y": 80.0291,
+        "rank_1y": "259/1000",
+        "max_dd": -14.3498,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "019431",
+        "name": "永赢睿信",
+        "positioning": "科技+医药",
+        "ytd": 77.3805,
+        "return_1y": 80.5585,
+        "rank_1y": "1090/4597",
+        "max_dd": -15.5543,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "010350",
+        "name": "景顺长城品质长青",
+        "positioning": "科技+消费",
+        "ytd": 64.3073,
+        "return_1y": 66.7098,
+        "rank_1y": "1327/4597",
+        "max_dd": -12.8247,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "001323",
+        "name": "东吴移动互联",
+        "positioning": "AI+锂电",
+        "ytd": 135.2712,
+        "return_1y": 138.3111,
+        "rank_1y": "168/2299",
+        "max_dd": -9.4074,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "008657",
+        "name": "景顺长城科技创新",
+        "positioning": "AI产业链",
+        "ytd": 72.0288,
+        "return_1y": 187.6512,
+        "rank_1y": "220/4597",
+        "max_dd": -7.7643,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "001437",
+        "name": "易方达瑞享",
+        "positioning": "科技轮动",
+        "ytd": 284.7561,
+        "return_1y": 292.6779,
+        "rank_1y": "17/2299",
+        "max_dd": -7.4148,
+        "reason": "替换大成核心优势，基金经理韩创离任，有色等传统周期板块缺乏资金面和情绪面支撑，维持谨慎观望。\n易方达瑞享为全市场行业轮动产品，基金经理武阳大势判断能力较强、调仓灵活，去年以来重点配置光通信、半导体等，同时关注消费、制造、医药等成长行业机会",
+        "status": "调入"
+      },
+      {
+        "code": "004815",
+        "name": "中欧红利优享",
+        "positioning": "红利",
+        "ytd": -17.0547,
+        "return_1y": 3.6283,
+        "rank_1y": "1827/2299",
+        "max_dd": -24.6834,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "020219",
+        "name": "万家锦利",
+        "positioning": "固收+",
+        "ytd": 9.138,
+        "return_1y": 17.168,
+        "rank_1y": "83/1257",
+        "max_dd": -2.6082,
+        "reason": "替换富国全球债券，上半年受美债利率上行、人民币升值影响美债收益，下半年仍有压力。\n万家锦利为固收+产品，权益布局科技、周期等，占比12%，有效增厚收益。",
+        "status": "调入"
+      },
+      {
+        "code": "516120",
+        "name": "富国中证细分化工产业主题ETF",
+        "positioning": "周期化工",
+        "ytd": 4.7337,
+        "return_1y": 52.9998,
+        "rank_1y": "816/3282",
+        "max_dd": -18.9662,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "013840",
+        "name": "银华集成电路",
+        "positioning": "半导体设备",
+        "ytd": 147.078,
+        "return_1y": 279.2937,
+        "rank_1y": "38/4600",
+        "max_dd": -19.1854,
+        "reason": "新增。重仓半导体国产化，以业绩确定的半导体设备公司为主，产品具备较好的主动超额和弹性。",
+        "status": "调入"
+      }
+    ],
+    "aggressive_funds": [
+      {
+        "code": "008282",
+        "name": "国泰CES半导体芯片行业ETF联接",
+        "positioning": "半导体",
+        "ytd": 141.7637,
+        "return_1y": 145.164,
+        "rank_1y": "155/3282",
+        "max_dd": -19.8062,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "008586",
+        "name": "华夏中证人工智能主题ETF联接",
+        "positioning": "AI",
+        "ytd": 32.9787,
+        "return_1y": 107.7485,
+        "rank_1y": "328/3282",
+        "max_dd": -14.6482,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "001513",
+        "name": "易方达信息产业",
+        "positioning": "电子",
+        "ytd": 97.5772,
+        "return_1y": 289.3805,
+        "rank_1y": "32/4597",
+        "max_dd": -7.4903,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "008657",
+        "name": "景顺长城科技创新",
+        "positioning": "AI产业链",
+        "ytd": 72.0288,
+        "return_1y": 187.6512,
+        "rank_1y": "220/4597",
+        "max_dd": -7.7643,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "159781",
+        "name": "易方达中证科创创业50ETF",
+        "positioning": "双创",
+        "ytd": 51.2381,
+        "return_1y": 152.348,
+        "rank_1y": "118/3282",
+        "max_dd": -9.3238,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "007817",
+        "name": "国泰中证通信设备ETF联接A",
+        "positioning": "通信光模块",
+        "ytd": 66.9696,
+        "return_1y": 243.4326,
+        "rank_1y": "12/3282",
+        "max_dd": -7.9053,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "017653",
+        "name": "创金合信全球芯片产业",
+        "positioning": "海外算力",
+        "ytd": 84.1887,
+        "return_1y": 85.212,
+        "rank_1y": "14/74",
+        "max_dd": -17.6436,
+        "reason": "",
+        "status": "保留"
+      },
+      {
+        "code": "022184",
+        "name": "富国全球科技互联网",
+        "positioning": "美股科技",
+        "ytd": 119.8739,
+        "return_1y": 119.9181,
+        "rank_1y": "9/74",
+        "max_dd": -14.4902,
+        "reason": "替换国富沪港深成长精选，配置中布局较多港股互联网龙头导致进攻性一般。\n富国全球科技互联重点布局美股TMT全产业链龙头，也有小仓位布局韩国半导体，弹性更强。",
+        "status": "调入"
+      },
+      {
+        "code": "013840",
+        "name": "银华集成电路",
+        "positioning": "半导体设备",
+        "ytd": 147.078,
+        "return_1y": 279.2937,
+        "rank_1y": "38/4600",
+        "max_dd": -19.1854,
+        "reason": "新增。重仓半导体国产化替代，以业绩确定的半导体设备公司、受益于AI浪潮的相关芯片设计和制造公司为主，产品具备较好的主动超额和弹性。",
+        "status": "调入"
+      }
+    ],
+    "out_active": [
+      {
+        "name": "大成核心趋势",
+        "code": "",
+        "reason": "调出大成核心趋势，基金经理韩创离任，有色等传统周期板块缺乏资金面和情绪面支撑"
+      },
+      {
+        "name": "富国全球债券",
+        "code": "",
+        "reason": "调出富国全球债券，上半年受美债利率上行、人民币升值影响"
+      }
+    ],
+    "out_aggressive": [
+      {
+        "name": "国富沪港深成长精选",
+        "code": "",
+        "reason": "调出国富沪港深成长精选，港股互联网龙头进攻性一般"
+      }
+    ]
+  },
+  "portfolio": {
+    "active": {
+      "name": "积极组合",
+      "funds": [
+        {
+          "code": "012445",
+          "name": "华富新能源",
+          "positioning": "新能源",
+          "ytd": 12.18,
+          "return_1y": 72.79,
+          "rank_1y": "259/1000",
+          "max_dd": -14.35,
+          "reason": "",
+          "status": "保留"
+        },
+        {
+          "code": "019431",
+          "name": "永赢睿信",
+          "positioning": "科技+医药",
+          "ytd": 13.29,
+          "return_1y": 68.86,
+          "rank_1y": "1090/4597",
+          "max_dd": -15.55,
+          "reason": "",
+          "status": "保留"
+        },
+        {
+          "code": "010350",
+          "name": "景顺长城品质长青",
+          "positioning": "科技+消费",
+          "ytd": 15.22,
+          "return_1y": 54.8,
+          "rank_1y": "1327/4597",
+          "max_dd": -12.82,
+          "reason": "",
+          "status": "保留"
+        },
+        {
+          "code": "001323",
+          "name": "东吴移动互联",
+          "positioning": "AI+锂电",
+          "ytd": 32.39,
+          "return_1y": 121.07,
+          "rank_1y": "168/2299",
+          "max_dd": -10.63,
+          "reason": "",
+          "status": "保留"
+        },
+        {
+          "code": "008657",
+          "name": "景顺长城科技创新",
+          "positioning": "AI产业链",
+          "ytd": 57.72,
+          "return_1y": 164.0,
+          "rank_1y": "220/4597",
+          "max_dd": -13.31,
+          "reason": "",
+          "status": "保留"
+        },
+        {
+          "code": "001437",
+          "name": "易方达瑞享",
+          "positioning": "科技轮动",
+          "ytd": 94.29,
+          "return_1y": 253.26,
+          "rank_1y": "17/2299",
+          "max_dd": -12.82,
+          "reason": "替换大成核心优势，基金经理韩创离任，有色等传统周期板块缺乏资金面和情绪面支撑，维持谨慎观望。\n易方达瑞享为全市场行业轮动产品，基金经理武阳大势判断能力较强、调仓灵活，去年以来重点配置光通信、半导体等，同时关注消费、制造、医药等成长行业机会",
+          "status": "调入"
+        },
+        {
+          "code": "004815",
+          "name": "中欧红利优享",
+          "positioning": "红利",
+          "ytd": -18.54,
+          "return_1y": 0.41,
+          "rank_1y": "1827/2299",
+          "max_dd": -25.01,
+          "reason": "",
+          "status": "保留"
+        },
+        {
+          "code": "020219",
+          "name": "万家锦利",
+          "positioning": "固收+",
+          "ytd": 7.79,
+          "return_1y": 15.18,
+          "rank_1y": "83/1257",
+          "max_dd": -2.61,
+          "reason": "替换富国全球债券，上半年受美债利率上行、人民币升值影响美债收益，下半年仍有压力。\n万家锦利为固收+产品，权益布局科技、周期等，占比12%，有效增厚收益。",
+          "status": "调入"
+        },
+        {
+          "code": "013840.OF",
+          "name": "银华集成电路",
+          "positioning": "半导体设备",
+          "ytd": 128.31,
+          "return_1y": 254.95,
+          "rank_1y": "38/4600",
+          "max_dd": -19.19,
+          "reason": "新增。重仓半导体国产化，以业绩确定的半导体设备公司为主，产品具备较好的主动超额和弹性。",
+          "status": "调入"
+        },
+        {
+          "code": "516120",
+          "name": "富国中证细分化工产业主题ETF",
+          "positioning": "周期化工",
+          "ytd": 6.99,
+          "return_1y": 53.81,
+          "rank_1y": "816/3282",
+          "max_dd": -18.97,
+          "reason": "",
+          "status": "保留"
+        }
+      ],
+      "equal_weight": {
+        "ytd": 34.96,
+        "return_1y": 105.91,
+        "max_dd": -9.02
+      },
+      "historical_weight": {
+        "ytd": 11.84,
+        "return_1y": 61.62,
+        "max_dd": -8.39,
+        "recommend_since": 30.46
+      },
+      "chart_metrics": {
+        "ytd": 17.62,
+        "return_1y": 55.77,
+        "max_dd": -6.93
+      }
+    },
+    "aggressive": {
+      "name": "激进组合",
+      "funds": [
+        {
+          "code": "008282",
+          "name": "国泰CES半导体芯片行业ETF联接",
+          "positioning": "半导体",
+          "ytd": 71.23,
+          "return_1y": 140.55,
+          "rank_1y": "155/3282",
+          "max_dd": -19.81,
+          "reason": "",
+          "status": "保留"
+        },
+        {
+          "code": "008586",
+          "name": "华夏中证人工智能主题ETF联接",
+          "positioning": "AI",
+          "ytd": 30.23,
+          "return_1y": 103.97,
+          "rank_1y": "328/3282",
+          "max_dd": -14.65,
+          "reason": "",
+          "status": "保留"
+        },
+        {
+          "code": "001513",
+          "name": "易方达信息产业",
+          "positioning": "电子",
+          "ytd": 79.89,
+          "return_1y": 243.39,
+          "rank_1y": "32/4597",
+          "max_dd": -9.46,
+          "reason": "",
+          "status": "保留"
+        },
+        {
+          "code": "008657",
+          "name": "景顺长城科技创新",
+          "positioning": "AI产业链",
+          "ytd": 57.72,
+          "return_1y": 164.0,
+          "rank_1y": "220/4597",
+          "max_dd": -13.31,
+          "reason": "",
+          "status": "保留"
+        },
+        {
+          "code": "159781",
+          "name": "易方达中证科创创业50ETF",
+          "positioning": "双创",
+          "ytd": 43.81,
+          "return_1y": 137.32,
+          "rank_1y": "118/3282",
+          "max_dd": -10.11,
+          "reason": "",
+          "status": "保留"
+        },
+        {
+          "code": "007817",
+          "name": "国泰中证通信设备ETF联接A",
+          "positioning": "通信光模块",
+          "ytd": 51.07,
+          "return_1y": 204.33,
+          "rank_1y": "12/3282",
+          "max_dd": -15.2,
+          "reason": "",
+          "status": "保留"
+        },
+        {
+          "code": "017653",
+          "name": "创金合信全球芯片产业",
+          "positioning": "海外算力",
+          "ytd": 45.06,
+          "return_1y": 93.01,
+          "rank_1y": "14/74",
+          "max_dd": -17.64,
+          "reason": "",
+          "status": "保留"
+        },
+        {
+          "code": "022184",
+          "name": "富国全球科技互联网",
+          "positioning": "美股科技",
+          "ytd": 68.51,
+          "return_1y": 107.64,
+          "rank_1y": "9/74",
+          "max_dd": -14.49,
+          "reason": "替换国富沪港深成长精选，配置中布局较多港股互联网龙头导致进攻性一般。\n富国全球科技互联重点布局美股TMT全产业链龙头，也有小仓位布局韩国半导体，弹性更强。",
+          "status": "调入"
+        },
+        {
+          "code": "013840.OF",
+          "name": "银华集成电路",
+          "positioning": "半导体设备",
+          "ytd": 128.31,
+          "return_1y": 254.95,
+          "rank_1y": "38/4600",
+          "max_dd": -19.19,
+          "reason": "新增。重仓半导体国产化替代，以业绩确定的半导体设备公司、受益于AI浪潮的相关芯片设计和制造公司为主，产品具备较好的主动超额和弹性。",
+          "status": "调入"
+        }
+      ],
+      "equal_weight": {
+        "ytd": 63.98,
+        "return_1y": 161.02,
+        "max_dd": -10.87
+      },
+      "historical_weight": {
+        "ytd": 48.99,
+        "return_1y": 141.16,
+        "max_dd": -8.92,
+        "recommend_since": 67.45
+      },
+      "chart_metrics": {
+        "ytd": 55.53,
+        "return_1y": 125.01,
+        "max_dd": -9.02
+      }
+    }
+  },
+  "benchmarks": {
+    "000300.SH": {
+      "name": "沪深300",
+      "ytd": 3.9387,
+      "return_1y": 21.2756,
+      "max_dd": -7.7795
+    },
+    "000906.SH": {
+      "name": "中证800",
+      "ytd": 7.2691,
+      "return_1y": 27.7541,
+      "max_dd": -8.796
+    }
+  },
+  "monthly_series": {
+    "dates": [
+      "2025-07-31",
+      "2025-08-29",
+      "2025-09-30",
+      "2025-10-31",
+      "2025-11-28",
+      "2025-12-31",
+      "2026-01-30",
+      "2026-02-27",
+      "2026-03-31",
+      "2026-04-30",
+      "2026-05-29",
+      "2026-06-30",
+      "2026-07-02"
+    ],
+    "active_nav": [
+      1.0,
+      1.208877,
+      1.3067,
+      1.282158,
+      1.258529,
+      1.324375,
+      1.409875,
+      1.408684,
+      1.312218,
+      1.50675,
+      1.580516,
+      1.661322,
+      1.557704
+    ],
+    "aggressive_nav": [
+      1.0,
+      1.282898,
+      1.412624,
+      1.394494,
+      1.349667,
+      1.446691,
+      1.557353,
+      1.55608,
+      1.439606,
+      1.783091,
+      2.083471,
+      2.473126,
+      2.250096
+    ],
+    "hs300_nav": [
+      1.0,
+      1.10334,
+      1.138655,
+      1.13865,
+      1.110676,
+      1.136017,
+      1.154762,
+      1.15582,
+      1.091879,
+      1.179537,
+      1.200346,
+      1.221769,
+      1.180762
+    ],
+    "zz800_nav": [
+      1.0,
+      1.110713,
+      1.152309,
+      1.14886,
+      1.11559,
+      1.152513,
+      1.204247,
+      1.217078,
+      1.126211,
+      1.22168,
+      1.237486,
+      1.280654,
+      1.23629
+    ]
+  }
+};
+
+// 数据已内嵌，双击 index.html 即可查看
+
+function fmt(val, suffix='') {
+  if (val == null) return '—';
+  return (val >= 0 ? '+' : '') + val.toFixed(1) + suffix;
+}
+function clr(val) {
+  if (val == null) return '';
+  return val >= 0 ? 'up' : 'down';
+}
+
+// ===== 配置思路结构化解析 =====
+function formatConfigText(text) {
+  if (!text) return '';
+  // 清理前置标题残余
+  text = text.replace(/^(2[．.])?\s*产品配置建议[：:]\s*/gm, '').trim();
+  text = text.replace(/^[的]*[（(][AB][)）]\s*积极[／/].*?[：:]\s*/gm, '').trim();
+  
+  const parts = text.split(/\n*·/).filter(p => p.trim());
+  let html = '<div class="pf-config-wrap">';
+
+  for (let part of parts) {
+    const t = part.trim();
+    if (!t) continue;
+
+    if (/^下阶段配置|^配置方面/.test(t) || t.includes('配置方面') || t.includes('下阶段配置')) {
+      // 🎯 下阶段配置思路
+      const mainText = t.replace(/^(?:配置方面|下阶段配置建议)[：:]\s*/, '');
+      // 拆分子要点 1）2）
+      const subItems = mainText.split(/(?=\d[）)])/).filter(s => s.trim());
+      html += `<div class="pf-cfg-card ac-emerald">
+        <div class="pf-cfg-head"><span class="pf-cfg-ico">🎯</span>下阶段配置思路</div>
+        <div class="pf-cfg-body">
+          <div class="pf-sub-block">`;
+      for (let si of subItems) {
+        const sm = si.match(/^(\d)[）)]\s*(.+)$/);
+        if (sm) {
+          // 智能标签化：检测科技/AI、医药/消费等关键词
+          let tag = '';
+          const content = sm[2].trim();
+          if (/科技|AI|算力|半导体|光模块/.test(content.slice(0, 15))) tag = '<span class="pf-sub-tag">科技主线</span>';
+          else if (/医药|消费|周期|制造/.test(content.slice(0, 15))) tag = '<span class="pf-sub-tag">低估值</span>';
+          else if (/港股|恒生/.test(content.slice(0, 10))) tag = '<span class="pf-sub-tag">港股</span>';
+          html += `<div class="pf-sub-item">
+            <span class="pf-sub-num">${sm[1]}</span>
+            <span>${tag}${highlightKeywords(content)}</span>
+          </div>`;
+        } else {
+          html += `<div class="pf-sub-item"><span>${si.trim()}</span></div>`;
+        }
+      }
+      html += `</div></div></div>`;
+    } else if (/港股|恒生/.test(t.slice(0, 10))) {
+      // 🇭🇰 港股市场
+      const clean = t.replace(/^[\s，,]+/, '');
+      html += `<div class="pf-cfg-card ac-amber">
+        <div class="pf-cfg-head"><span class="pf-cfg-ico">🇭🇰</span>港股市场</div>
+        <div class="pf-cfg-body">${clean}</div>
+      </div>`;
+    } else {
+      // 📊 A股市场
+      const clean = t.replace(/^[\s，,]+/, '');
+      html += `<div class="pf-cfg-card ac-blue">
+        <div class="pf-cfg-head"><span class="pf-cfg-ico">📊</span>A股市场</div>
+        <div class="pf-cfg-body">${clean}</div>
+      </div>`;
+    }
+  }
+  html += '</div>';
+  return html;
+}
+
+// 关键词高亮 —— 行业、赛道、板块相关表述加粗高亮
+function highlightKeywords(t) {
+  return t.replace(/(AI产业链|AI算力基建|AI新材料|AI算力|AI|光模块|半导体设备|半导体材料|半导体|PCB|存储|光纤|液冷材料|新材料|算力|科创50|创业板指|恒生科技|港股|周期制造|周期|制造|消费|医药|科技主线|科技)/g, '<span class="pf-keyword">$1</span>');
+}
+
+// ===== 构建全宽组合卡片 =====
+function buildPortfolioCard(type, data, staticInfo, outInfo, benchmarks, monthlySeries, configText, updateDate) {
+  const isActive = type === 'active';
+  const color = isActive ? 'act' : 'agg';
+  const icon = isActive ? '📈' : '🔥';
+  const desc = isActive ? '科技主题为主 · 增配固收/医药/消费/周期' : '纯TMT高成长 · 集中持仓';
+  const funds = data.funds || [];
+  const ew = data.equal_weight || {};
+  const historicalWeight = data.historical_weight || ew;
+  const bench = benchmarks['000300.SH'] || {};
+  const fundCount = funds.length;
+  // YTD 用历史持仓（Sheet2），不是最新持仓等权
+  const displayYtd = (historicalWeight.ytd != null) ? historicalWeight.ytd : (ew.ytd ?? null);
+  const displayRet1y = (historicalWeight.return_1y != null) ? historicalWeight.return_1y : (ew.return_1y ?? null);
+  const displayMaxDd = (historicalWeight.max_dd != null) ? historicalWeight.max_dd : (ew.max_dd ?? null);
+  const displayRec = (historicalWeight.recommend_since != null) ? historicalWeight.recommend_since : (ew.recommend_since ?? null);
+  const excess = (displayYtd != null && bench.ytd != null) ? (displayYtd - bench.ytd) : null;
+
+  // 历史持有的基金（不含调入）：用于贡献分析
+  const heldFunds = funds.filter(f => f.status !== '调入');
+  const heldCount = heldFunds.length;
+
+  // 最佳/最差表现基金（不含调入，往期贡献才有意义）
+  const bestFund = [...heldFunds].sort((a,b)=>((b.ytd||0)-(a.ytd||0)))[0] || {};
+  const worstFund = [...heldFunds].sort((a,b)=>((a.ytd||0)-(b.ytd||0)))[0] || {};
+
+  // 策略文案（从参数传入）
+  const configTextFinal = (configText || '').replace(/\n/g, '<br>');
+
+  let html = `<div class="pf-card">
+<div class="pf-header ${color}">
+  <div class="pf-h-top">
+    <span class="pf-h-icon">${icon}</span>
+    <span class="pf-h-title">${data.name}</span>
+    <span class="pf-h-desc">${desc}</span>
+  </div>
+  <div class="pf-h-main-row">
+    <div class="pf-h-ytd">
+      <div class="pf-h-ytd-label">今年以来收益</div>
+      <div class="pf-h-ytd-num">${fmt(displayYtd, '%')}</div>
+    </div>
+    <div class="pf-h-ytd-rec">
+      <div class="pf-h-ytd-label">推荐以来收益</div>
+      <div class="pf-h-ytd-num-rec">${fmt(displayRec, '%')}</div>
+    </div>
+    <div class="pf-h-bench">
+      基准（沪深300）：${fmt(bench.ytd, '%')} · 超额 <b>${fmt(excess, '%')}</b><br>
+      近1年 ${fmt(displayRet1y, '%')} &nbsp;|&nbsp; 今年以来最大回撤 ${fmt(displayMaxDd, '%')}<br>
+      <span class="pf-h-excess">${excess>=0?'🏆 跑赢':'⚠️ 跑输'} ${Math.abs(excess).toFixed(1)}个百分点</span>
+    </div>
+  </div>
+</div>
+<div class="pf-body">`;
+
+  // 配置思路 — 结构化卡片（底色区分）
+  html += `<div class="pf-section-title"><span class="pf-st-icon">💡</span>配置思路</div>`;
+  html += formatConfigText(configText);
+
+  // 调仓 — 编号格式
+  const inFunds = staticInfo.filter(f => f.status === '调入');
+  const allChanges = [...inFunds.map(f => ({...f, isIn: true})), ...outInfo.map(f => ({...f, isIn: false}))];
+  if (allChanges.length > 0) {
+    html += `<div class="pf-section-title"><span class="pf-st-icon">📝</span>本期调仓建议（202606）</div>`;
+    let count = 1;
+    // 调入（含替换信息）
+    for (let f of inFunds) {
+      // 尝试从调出列表找到被替换的基金
+      const replaced = outInfo.length >= count ? outInfo[count-1] : null;
+      const replaceStr = replaced
+        ? `<span class="cb-action cb-replace">替换</span> <strong>${replaced.name}</strong>：`
+        : '<span class="cb-action cb-new">新增</span>：';
+      // 去掉 reason 中重复的“替换XX”“新增。”前缀，避免与标签重复
+      const reasonText = (f.reason || '')
+        .replace(/^替换[^，。]+[，。]\s*/, '')
+        .replace(/^新增。\s*/, '');
+      html += `<div class="cb-detail"><span class="cb-num">${numToCircle(count)}</span> <span class="cb-name"><strong>${f.name||f.positioning}</strong></span>（<span class="cb-code">${(f.code||'').replace('.OF','')}</span>）${replaceStr}${reasonText}</div>`;
+      count++;
+    }
+  }
+
+  // 表格 — 调入排前面
+  const sortedInfo = [...staticInfo].sort((a, b) => {
+    if (a.status === '调入' && b.status !== '调入') return -1;
+    if (a.status !== '调入' && b.status === '调入') return 1;
+    return 0;
+  });
+
+  html += `<div class="pf-section-title"><span class="pf-st-icon">📊</span>持仓明细</div>
+<div class="ft-wrap"><table>
+  <thead><tr><th>代码</th><th>基金名称</th><th>定位</th><th>今年收益</th><th>近一年收益</th><th>等权贡献</th></tr></thead><tbody>`;
+
+  for (let f of sortedInfo) {
+    const fd = funds.find(x => x.name === f.name) || {};
+    const yt = fd.ytd != null ? fd.ytd : null;
+    const r1 = fd.return_1y != null ? fd.return_1y : null;
+    const isNew = f.status === '调入';
+    // 调入基金不参与贡献计算（本期新加入，往期收益不代表组合表现）
+    const contrib = (!isNew && yt != null) ? yt / heldCount : null;
+    const badge = isNew
+      ? ' <span class="badge badge-in">调入</span>'
+      : ' <span class="badge badge-keep">保留</span>';
+    const cc = contrib != null ? (contrib >= 0 ? 'contrib-up' : 'contrib-down') : '';
+    const cl = contrib != null ? (contrib >= 0 ? '贡献' : '拖累') : '';
+    const isBest = fd.name === bestFund.name;
+    html += `<tr>
+      <td class="td-code">${(f.code||'').replace('.OF','')}</td>
+      <td class="td-name">${f.name || f.positioning}${badge}${isBest && !isNew?' <span class="star">⭐</span>':''}</td>
+      <td>${f.positioning}</td>
+      <td class="${clr(yt)}">${fmt(yt, '%')}</td>
+      <td class="${clr(r1)}">${fmt(r1, '%')}</td>
+      <td class="${cc}">${contrib!=null?(cl+' '+fmt(Math.abs(contrib),'%')):'— 本期新调入'}</td>
+    </tr>`;
+  }
+  html += `<tr style="background:#f1f5f9;font-weight:700">
+    <td class="td-code">000300</td><td>沪深300指数（基准）</td><td>基准</td>
+    <td class="${clr(bench.ytd)}">${fmt(bench.ytd,'%')}</td>
+    <td class="${clr(bench.return_1y)}">${fmt(bench.return_1y,'%')}</td>
+    <td>—</td></tr>`;
+  html += `</tbody></table></div>`;
+
+  // 风险收益指标
+  html += `<div class="pf-section-title"><span class="pf-st-icon">📐</span>风险收益指标（年初至今）</div>
+<div class="ft-wrap"><table>
+  <thead><tr><th>指标</th><th>${data.name}</th><th>沪深300（基准）</th></tr></thead><tbody>
+  <tr><td>今年以来收益</td><td class="${clr(displayYtd)}">${fmt(displayYtd,'%')}</td><td class="${clr(bench.ytd)}">${fmt(bench.ytd,'%')}</td></tr>
+  <tr><td>近一年收益</td><td>${fmt(displayRet1y,'%')}</td><td>${fmt(bench.return_1y,'%')}</td></tr>
+  <tr><td>超额收益</td><td style="color:${excess>=0?'#dc2626':'#16a34a'};font-weight:800">${fmt(excess,'%')}</td><td>—</td></tr>
+  <tr><td>最大回撤</td><td style="color:var(--amb)">${fmt(displayMaxDd,'%')}</td><td style="color:var(--amb)">${fmt(bench.max_dd,'%')}</td></tr>
+  <tr><td>上涨贡献 TOP3</td><td colspan="2">${[...heldFunds].sort((a,b)=>((b.ytd||0)-(a.ytd||0))).slice(0,3).map(f=>`${f.name||'—'} ${fmt(f.ytd||0,'%')} / ${contribFormat(f.ytd,heldCount)}`).join(' &nbsp;|&nbsp; ')}</td></tr>
+  <tr><td>主要拖累项</td><td colspan="2">${worstFund.name||'—'} ${fmt(worstFund.ytd||0,'%')} / ${contribFormat(worstFund.ytd,heldCount)}</td></tr>
+  </tbody></table>
+  <div style="font-size:11px;color:#94a3b8;margin-top:6px;padding-left:4px">⚠️ 涨跌贡献仅统计历史持仓（${heldCount}只），本期新调入产品不计入往期贡献。</div></div>`;
+
+  // 行业主题分布 — 基于最新持仓动态生成
+  // 定位分组：粗分大类 → 产品名列表
+  const themeMap = {};
+  const themeGroups = [
+    { key: '📊 宽基指数', match: /双创|科创50|宽基/, logic: '核心 Beta，配置 A 股宽基' },
+    { key: '📈 ETF / 被动工具', match: (f) => (f.name || '').includes('ETF'), logic: '行业主题指数工具，高效暴露赛道' },
+    { key: '🌍 全球科技', match: /全球|海外|跨境|QDII/, logic: '全球化科技配置，分散单一市场风险' },
+    { key: '⚙️ AI / TMT 主动赛道', match: /AI|科技|电子|信息|产业链|集成电路|光模块|算力|半导体|芯片|通信/, logic: '主动管理，深度挖掘 AI 产业链超额收益' },
+    { key: '⚡ 新能源 / 周期', match: /新能源|化工|周期|锂电/, logic: '能源转型+周期品成本优势' },
+    { key: '💎 防御 / 红利', match: /红利|高股息/, logic: '高股息策略，降低组合波动' },
+    { key: '🌐 港股 / 跨境', match: /港股|沪港深|香港/, logic: '港股平台型配置，互联网与新经济' },
+    { key: '🛡️ 固收 / 稳健', match: /固收|债券|稳健|纯债/, logic: '组合压舱石，控制回撤' },
+    { key: '🏥 医药消费 / 低估值', match: /医药|消费|制造|医疗|大健康/, logic: '左侧布局，安全边际较高' },
+  ];
+
+  for (let f of staticInfo) {
+    let matched = false;
+    for (let g of themeGroups) {
+      let isMatch = false;
+      if (typeof g.match === 'function') {
+        isMatch = g.match(f);
+      } else if (g.match instanceof RegExp) {
+        isMatch = g.match.test(f.positioning || '') || g.match.test(f.name || '');
+      }
+      if (isMatch) {
+        if (!themeMap[g.key]) themeMap[g.key] = { products: [], logic: g.logic };
+        themeMap[g.key].products.push(f.name);
+        matched = true;
+        break;
+      }
+    }
+    if (!matched) {
+      const fallback = '📌 其他';
+      if (!themeMap[fallback]) themeMap[fallback] = { products: [], logic: '多元配置' };
+      themeMap[fallback].products.push(f.name);
+    }
+  }
+
+  html += `<div class="pf-section-title"><span class="pf-st-icon">🗺️</span>行业 / 主题分布总览（仅最新持仓）</div>
+<div class="theme-wrap"><table>
+  <thead><tr><th>主题方向</th><th>覆盖产品</th><th>配置逻辑</th></tr></thead><tbody>`;
+  for (let [theme, info] of Object.entries(themeMap)) {
+    html += `<tr><td><strong>${theme}</strong></td><td>${info.products.join('、')}</td><td>${info.logic}</td></tr>`;
+  }
+  html += `</tbody></table></div>`;
+
+  html += `</div></div>`;
+  return html;
+}
+
+// 序号圆圈 ①②③...
+function numToCircle(n) { return ['①','②','③','④','⑤','⑥','⑦','⑧'][n-1] || '●'; }
+function contribFormat(ytd, n) { if (ytd==null) return '—'; const v=Math.abs(ytd/n); return (ytd>=0?'贡献':'拖累')+' '+v.toFixed(2)+'%'; }
+
+// ===== 渲染页面 =====
+async function render() {
+  const data = await loadData();
+  document.getElementById('loading').style.display = 'none';
+
+  const dd = data.data_date || '—';
+  document.getElementById('dataDate').textContent = dd;
+  document.getElementById('updateBadge').textContent = '数据更新: ' + dd.slice(0,10);
+  document.getElementById('updateTime').textContent = data.update_time || '—';
+
+  // 全宽卡片
+  const si = data.static_info;
+  const m = (data.update_time || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  const dispDate = m ? m[1] + '年' + parseInt(m[2]) + '月' + parseInt(m[3]) + '日' : '2026年6月26日';
+  document.getElementById('cardActive').innerHTML =
+    buildPortfolioCard('active', data.portfolio.active, si.active_funds, si.out_active, data.benchmarks, data.monthly_series, data.config_text, dispDate);
+  document.getElementById('cardAggressive').innerHTML =
+    buildPortfolioCard('aggressive', data.portfolio.aggressive, si.aggressive_funds, si.out_aggressive, data.benchmarks, data.monthly_series, data.config_text, dispDate);
+
+  // 收益回撤曲线
+  renderCharts(data);
+
+  // 显示页面
+  document.querySelector('.hero').style.display = '';
+  document.getElementById('tabBar').style.display = '';
+  document.getElementById('sec3').style.display = '';
+  document.getElementById('footer').style.display = '';
+}
+
+// ===== Tab 切换 =====
+function switchTab(tab) {
+  // 按钮状态
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  // 内容切换
+  document.getElementById('tabActive').classList.toggle('active', tab === 'active');
+  document.getElementById('tabAggressive').classList.toggle('active', tab === 'aggressive');
+}
+
+// ===== 日期区间选择逻辑 =====
+let chartData = null;
+
+function usePreset(el) {
+  const months = parseInt(el.dataset.months) || 0;
+  if (!chartData || !chartData.dates) return;
+
+  const dates = chartData.dates;
+  const latest = dates[dates.length - 1]; // e.g. "2026-06-29"
+  const [ly, lm, ld] = latest.split('-').map(Number);
+  const earliest = dates[0]; // e.g. "2025-07-01"
+
+  let dsFrom, dsTo;
+  dsTo = latest; // 截止日始终是最新数据日期
+
+  if (months === 0) {
+    // 全部
+    dsFrom = earliest;
+  } else {
+    // 往前推 N 个月（精确到日）
+    const d = new Date(ly, lm - 1, ld);
+    if (months === -99) {
+      // 今年以来：从上年12-31起算，保证图表基准点和卡片YTD一致
+      dsFrom = `${ly - 1}-12-31`;
+    } else {
+      d.setMonth(d.getMonth() - months);
+      const fromY = d.getFullYear();
+      const fromM = String(d.getMonth() + 1).padStart(2, '0');
+      const fromD = String(d.getDate()).padStart(2, '0');
+      dsFrom = `${fromY}-${fromM}-${fromD}`;
+    }
+  }
+
+  document.getElementById('dsFrom').value = dsFrom.slice(0, 10);
+  document.getElementById('dsTo').value = dsTo.slice(0, 10);
+  document.querySelectorAll('.preset').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  applyRange();
+}
+
+function applyRange() {
+  if (!chartData) return;
+  const dsFrom = document.getElementById('dsFrom').value;
+  const dsTo = document.getElementById('dsTo').value;
+  drawDynamicCharts(chartData, dsFrom, dsTo);
+}
+
+// ===== 动态绘制图表 =====
+function renderCharts(data) {
+  chartData = data.monthly_series;
+  if (!chartData || !chartData.dates) {
+    document.getElementById('sec3').innerHTML += '<div style="color:#94a3b8;padding:20px;text-align:center">暂无月度序列数据，请运行 python update.py 更新</div>';
+    return;
+  }
+  // 默认选中"近1年"
+  const defaultPreset = document.querySelector('.preset[data-months="12"]');
+  if (defaultPreset) {
+    usePreset(defaultPreset);
+  } else {
+    // fallback：全部
+    const allPreset = document.querySelector('.preset[data-months="0"]');
+    if (allPreset) usePreset(allPreset);
+  }
+}
+
+function drawDynamicCharts(ms, dsFrom, dsTo) {
+  const dates = ms.dates;
+  const active_nav = ms.active_nav;
+  const aggressive_nav = ms.aggressive_nav;
+  const hs300_nav = ms.hs300_nav;
+  const zz800_nav = ms.zz800_nav;
+
+  // Find indices
+  let i0 = dates.findIndex(d => d >= dsFrom);
+  let i1 = dates.findLastIndex(d => d <= dsTo);
+  if (i0 < 0) i0 = 0;
+  if (i1 < 0) i1 = dates.length - 1;
+  if (i0 >= i1) { i1 = i0 + 1; if (i1 >= dates.length) i1 = dates.length - 1; }
+
+  // Slice
+  const xDates = dates.slice(i0, i1 + 1);
+  const n = xDates.length;
+  const xLabels = xDates.map(d => {
+    const parts = d.split('-');
+    const y = parts[0].slice(2);
+    const m = parseInt(parts[1]);
+    const day = parts[2];
+    // Last datapoint shows full date with day (e.g. "06.29"), others show year.month (e.g. "25.07")
+    if (day !== '01') return y + '.' + String(m).padStart(2,'0') + '.' + day;
+    return y + '.' + String(m).padStart(2,'0');
+  });
+
+  function sl(arr) { return arr.slice(i0, i1 + 1); }
+  const aNav = sl(active_nav);
+  const gNav = sl(aggressive_nav);
+  const hNav = sl(hs300_nav);
+  const zNav = sl(zz800_nav);
+
+  // Convert to cumulative return (%)
+  function toRet(navs) { return navs.map(v => (v / navs[0] - 1) * 100); }
+  const aRet = toRet(aNav);
+  const gRet = toRet(gNav);
+  const hRet = toRet(hNav);
+  const zRet = toRet(zNav);
+
+  // Metrics
+  const aEnd = aRet[n-1], gEnd = gRet[n-1], hEnd = hRet[n-1], zEnd = zRet[n-1];
+
+  // Update summary
+  document.getElementById('rangeSummary').innerHTML =
+    `区间：<b>${dsFrom.slice(0,10)}</b> → <b>${dsTo.slice(0,10)}</b>（${xLabels.length}个数据点）&nbsp;|&nbsp;
+     积极 <span class="${clr(aEnd)}">${fmt(aEnd,'%')}</span> &nbsp;
+     激进 <span class="${clr(gEnd)}">${fmt(gEnd,'%')}</span> &nbsp;
+     沪深300 <span class="${clr(hEnd)}">${fmt(hEnd,'%')}</span> &nbsp;
+     中证800 <span class="${clr(zEnd)}">${fmt(zEnd,'%')}</span>`;
+
+  // Legend
+  document.getElementById('chartLegend').innerHTML = `
+    <div class="legend-item"><div class="ls" style="background:#2563eb"></div>积极组合 ${fmt(aEnd,'%')}</div>
+    <div class="legend-item"><div class="ls" style="background:#dc2626"></div>激进组合 ${fmt(gEnd,'%')}</div>
+    <div class="legend-item"><div class="ld" style="border-color:#d97706"></div>沪深300 ${fmt(hEnd,'%')}</div>
+    <div class="legend-item"><div class="ld" style="border-color:#0891b2"></div>中证800 ${fmt(zEnd,'%')}</div>`;
+
+  // ===== 主图表: 累计收益 =====
+  drawCumulativeChart(aRet, gRet, hRet, zRet, xLabels, xDates, n, aEnd, gEnd);
+
+  // ===== 回撤图表 =====
+  document.getElementById('ddLegend').innerHTML = `
+    <div class="legend-item"><div class="ls" style="background:#2563eb"></div>积极组合</div>
+    <div class="legend-item"><div class="ls" style="background:#dc2626"></div>激进组合</div>
+    <div class="legend-item"><div class="ld" style="border-color:#d97706"></div>沪深300</div>
+    <div class="legend-item"><div class="ld" style="border-color:#0891b2"></div>中证800</div>`;
+  drawDrawdownChart(aNav, gNav, hNav, zNav, xLabels, xDates, n);
+}
+
+function drawCumulativeChart(aRet, gRet, hRet, zRet, labels, xDates, n, aEnd, gEnd) {
+  const svg = document.getElementById('mainChart');
+  if (!svg) return;
+  const wrap = svg.parentElement;
+  svg.innerHTML = '';
+
+  // Remove old tooltip
+  const oldTip = wrap.querySelector('.chart-tooltip');
+  if (oldTip) oldTip.remove();
+
+  // Remove old listeners
+  if (svg._onMove) { svg.removeEventListener('mousemove', svg._onMove); svg.removeEventListener('mouseleave', svg._onLeave); }
+
+  const W = 800, H = 320, ml = 62, mr = 80, mt = 20, mb = 50;
+  const pw = W - ml - mr, ph = H - mt - mb;
+
+  // Y range
+  let allVals = [...aRet, ...gRet, ...hRet, ...zRet];
+  let yMin = Math.min(...allVals, -5);
+  let yMax = Math.max(...allVals, 5);
+  let pad = (yMax - yMin) * 0.12;
+  yMin -= pad; yMax += pad;
+  yMax = Math.ceil(yMax / 10) * 10;
+  yMin = Math.floor(yMin / 10) * 10;
+  const yRange = yMax - yMin;
+
+  function y(v) { return mt + ph - ((v - yMin) / yRange) * ph; }
+  function x(i) { return ml + (i / Math.max(n-1,1)) * pw; }
+
+  // Grid & Y labels
+  let svgInner = '';
+  for (let v = yMin; v <= yMax; v += (yRange <= 40 ? 10 : 20)) {
+    if (v > yMax) break;
+    let yy = y(v);
+    let isZero = Math.abs(v) < 0.1;
+    svgInner += `<line x1="${ml}" y1="${yy}" x2="${W-mr}" y2="${yy}" stroke="${isZero?'#c8d0dc':'#e8edf5'}" stroke-width="${isZero?1.5:0.8}" stroke-dasharray="${isZero?'':'4,3'}"/>`;
+    svgInner += `<text x="${ml-6}" y="${yy+4}" font-size="10" fill="${isZero?'#64748b':'#94a3b8'}" text-anchor="end" font-weight="${isZero?'600':'400'}">${v>=0?'+':''}${v}%</text>`;
+  }
+
+  // X labels
+  let step = n > 18 ? 2 : 1;
+  for (let i = 0; i < n; i++) {
+    if (i % step !== 0 && i !== 0 && i !== n-1) continue;
+    svgInner += `<text x="${x(i)}" y="${H-mb+18}" font-size="9" fill="#64748b" text-anchor="middle">${labels[i]}</text>`;
+    if (xDates[i].endsWith('-01-01') || i === 0) {
+      svgInner += `<text x="${x(i)}" y="${H-mb+32}" font-size="9" fill="#94a3b8" text-anchor="middle">${xDates[i].slice(0,4)}年</text>`;
+    }
+  }
+
+  // Bezier path helper
+  function bpath(retArr) {
+    if (n < 2) return '';
+    let d = `M${x(0)},${y(retArr[0])}`;
+    for (let i = 1; i < n; i++) {
+      let px = x(i-1), nx = x(i);
+      d += ` C${px+(nx-px)*0.35},${y(retArr[i-1])} ${px+(nx-px)*0.65},${y(retArr[i])} ${nx},${y(retArr[i])}`;
+    }
+    return d;
+  }
+
+  const series = [
+    {ret:aRet, color:'#2563eb', label:'积极', fill:true},
+    {ret:gRet, color:'#dc2626', label:'激进', fill:true},
+    {ret:hRet, color:'#d97706', label:'沪深300', fill:false, dashed:true},
+    {ret:zRet, color:'#0891b2', label:'中证800', fill:false, dashed:true},
+  ];
+
+  for (let s of series) {
+    let d = bpath(s.ret);
+    if (s.fill) {
+      let fid = s.color.replace('#','');
+      svgInner += `<defs><linearGradient id="fg${fid}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${s.fillStop||s.color}" stop-opacity="${s.fillStop?0.15:0.18}"/>
+        <stop offset="100%" stop-color="${s.fillStop||s.color}" stop-opacity="0.01"/>
+      </linearGradient></defs>`;
+      svgInner += `<path d="${d} L${x(n-1)},${y(yMin)} L${x(0)},${y(yMin)} Z" fill="url(#fg${fid})"/>`;
+    }
+    let sw = s.dashed ? 1.8 : 2.5, da = s.dashed ? '6,4' : 'none';
+    svgInner += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${sw}" stroke-dasharray="${da}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    // End point
+    let lx = x(n-1), ly = y(s.ret[n-1]);
+    if (!s.dashed) {
+      svgInner += `<circle cx="${lx}" cy="${ly}" r="4.5" fill="#fff" stroke="${s.color}" stroke-width="2.5"/>`;
+    }
+    // End label
+    let endVal = s.ret[n-1];
+    let lbl = s.label + ' ' + (endVal>=0?'+':'') + endVal.toFixed(1) + '%';
+    let labelW = lbl.length > 9 ? 68 : 56;
+    svgInner += `<rect x="${lx+6}" y="${ly-11}" width="${labelW}" height="20" rx="5" fill="${s.color}" opacity="${s.dashed?0.85:1}"/>`;
+    svgInner += `<text x="${lx+6+labelW/2}" y="${ly+2.5}" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">${lbl}</text>`;
+  }
+
+  // hover zone: full-height transparent rect per data point
+  for (let i = 0; i < n; i++) {
+    const barW = pw / Math.max(n-1,1) * 0.8;
+    svgInner += `<rect x="${x(i)-barW/2}" y="${mt}" width="${barW}" height="${ph}" fill="transparent" class="ch-dot-zone" data-idx="${i}"/>`;
+  }
+
+  svg.innerHTML = svgInner;
+
+  // ── Tooltip div ──
+  const tip = document.createElement('div');
+  tip.className = 'chart-tooltip';
+  wrap.appendChild(tip);
+
+  // Crosshair group with animated dash and highlight bar
+  const chGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  chGroup.setAttribute('id', 'chGroup');
+  chGroup.style.display = 'none';
+  chGroup.innerHTML = `<rect id="chHlBar" x="0" y="${mt}" width="2" height="${ph}" fill="rgba(100,116,139,.08)"/>
+    <line id="chLine" x1="0" y1="${mt}" x2="0" y2="${H-mb}" stroke="rgba(100,116,139,.45)" stroke-width="1.2" stroke-dasharray="5,3">
+      <animate attributeName="stroke-dashoffset" from="16" to="0" dur="0.8s" repeatCount="indefinite"/>
+    </line>
+    <circle id="chD0" r="5" fill="#fff" stroke="#2563eb" stroke-width="2.5" class="crosshair-dot"/>
+    <circle id="chD1" r="5" fill="#fff" stroke="#dc2626" stroke-width="2.5" class="crosshair-dot"/>
+    <circle id="chD2" r="4" fill="#fff" stroke="#d97706" stroke-width="2" class="crosshair-dot"/>
+    <circle id="chD3" r="4" fill="#fff" stroke="#0891b2" stroke-width="2" class="crosshair-dot"/>`;
+  svg.appendChild(chGroup);
+
+  // ── Mouse handlers (throttled with rAF) ──
+  let rafId = null, lastIdx = -1;
+  svg._onMove = function(e) {
+    if (rafId) return; // skip if already pending
+    rafId = requestAnimationFrame(() => {
+      rafId = null;
+      const rect = svg.getBoundingClientRect();
+      const scaleX = 800 / rect.width;
+      const mx = (e.clientX - rect.left) * scaleX;
+      if (mx < ml || mx > W - mr) { tip.style.display = 'none'; chGroup.style.display = 'none'; return; }
+      let idx = Math.round((mx - ml) / pw * Math.max(n-1,1));
+      idx = Math.max(0, Math.min(n-1, idx));
+      if (idx === lastIdx) return; // no change, skip DOM updates
+      lastIdx = idx;
+      const cx = x(idx);
+
+      // Position crosshair + highlight bar
+      chGroup.style.display = '';
+      document.getElementById('chHlBar').setAttribute('x', cx-1);
+      document.getElementById('chLine').setAttribute('x1', cx);
+      document.getElementById('chLine').setAttribute('x2', cx);
+      document.getElementById('chD0').setAttribute('cx', cx);
+      document.getElementById('chD0').setAttribute('cy', y(aRet[idx]));
+      document.getElementById('chD1').setAttribute('cx', cx);
+      document.getElementById('chD1').setAttribute('cy', y(gRet[idx]));
+      document.getElementById('chD2').setAttribute('cx', cx);
+      document.getElementById('chD2').setAttribute('cy', y(hRet[idx]));
+      document.getElementById('chD3').setAttribute('cx', cx);
+      document.getElementById('chD3').setAttribute('cy', y(zRet[idx]));
+
+      // Tooltip with styled values
+      const dateStr = xDates[idx].slice(0, 7);
+      tip.innerHTML = `<div class="tt-date">📅 ${dateStr}</div>
+        <div class="tt-row"><span class="tt-dot" style="background:#2563eb"></span>积极 <b style="margin-left:auto;color:#60a5fa">${(aRet[idx]>=0?'+':'')+aRet[idx].toFixed(2)}%</b></div>
+        <div class="tt-row"><span class="tt-dot" style="background:#dc2626"></span>激进 <b style="margin-left:auto;color:#f87171">${(gRet[idx]>=0?'+':'')+gRet[idx].toFixed(2)}%</b></div>
+        <div class="tt-row"><span class="tt-dot" style="background:#d97706"></span>沪深300 <b style="margin-left:auto;color:#fbbf24">${(hRet[idx]>=0?'+':'')+hRet[idx].toFixed(2)}%</b></div>
+        <div class="tt-row"><span class="tt-dot" style="background:#0891b2"></span>中证800 <b style="margin-left:auto;color:#22d3ee">${(zRet[idx]>=0?'+':'')+zRet[idx].toFixed(2)}%</b></div>`;
+
+      tip.style.display = 'block';
+      let tx = e.clientX - rect.left + 16;
+      let ty = e.clientY - rect.top - 90;
+      if (tx + 180 > rect.width) tx = e.clientX - rect.left - 190;
+      if (ty < 0) ty = e.clientY - rect.top + 20;
+      tip.style.left = tx + 'px';
+      tip.style.top = ty + 'px';
+    });
+  };
+
+  svg._onLeave = function() {
+    tip.style.display = 'none';
+    chGroup.style.display = 'none';
+  };
+
+  svg.addEventListener('mousemove', svg._onMove);
+  svg.addEventListener('mouseleave', svg._onLeave);
+}
+
+function drawDrawdownChart(aNav, gNav, hNav, zNav, labels, xDates, n) {
+  const svg = document.getElementById('ddChart');
+  if (!svg) return;
+  const wrap = svg.parentElement;
+  svg.innerHTML = '';
+
+  // Remove old tooltip
+  const oldTip = wrap.querySelector('.chart-tooltip');
+  if (oldTip) oldTip.remove();
+  if (svg._onMove) { svg.removeEventListener('mousemove', svg._onMove); svg.removeEventListener('mouseleave', svg._onLeave); }
+
+  const W = 800, H = 220, ml = 62, mr = 30, mt = 16, mb = 40;
+  const pw = W - ml - mr, ph = H - mt - mb;
+
+  function rollDD(navs) {
+    let peak = navs[0], dds = [0];
+    for (let i = 1; i < navs.length; i++) {
+      if (navs[i] > peak) peak = navs[i];
+      dds.push((navs[i] / peak - 1) * 100);
+    }
+    return dds;
+  }
+  const aDD = rollDD(aNav), gDD = rollDD(gNav), hDD = rollDD(hNav), zDD = rollDD(zNav);
+
+  let yMin = Math.min(...aDD, ...gDD, ...hDD, ...zDD, -5);
+  yMin = Math.floor(yMin / 5) * 5 - 2;
+  const yMax = 1;
+  const yRange = yMax - yMin;
+
+  function y(v) { return mt + (yMax - v) / yRange * ph; }
+  function x(i) { return ml + (i / Math.max(n-1,1)) * pw; }
+
+  let svgInner = '';
+  // 0% reference line + grid lines every 5%
+  for (let v = 0; v >= yMin; v -= 5) {
+    let yy = y(v);
+    const isZero = Math.abs(v) < 0.1;
+    svgInner += `<line x1="${ml}" y1="${yy}" x2="${W-mr}" y2="${yy}" stroke="${isZero?'#c8d0dc':'#e8edf5'}" stroke-width="${isZero?1.5:0.8}" stroke-dasharray="${isZero?'':'4,3'}"/>`;
+    svgInner += `<text x="${ml-6}" y="${yy+4}" font-size="10" fill="${isZero?'#64748b':'#94a3b8'}" text-anchor="end" font-weight="${isZero?'600':'400'}">${v}%</text>`;
+  }
+
+  let step = n > 18 ? 2 : 1;
+  for (let i = 0; i < n; i++) {
+    if (i % step !== 0 && i !== 0 && i !== n-1) continue;
+    svgInner += `<text x="${x(i)}" y="${H-mb+18}" font-size="9" fill="#64748b" text-anchor="middle">${labels[i]}</text>`;
+  }
+
+  function bpath(ddArr) {
+    if (n < 2) return '';
+    let d = `M${x(0)},${y(ddArr[0])}`;
+    for (let i = 1; i < n; i++) {
+      let px = x(i-1), nx = x(i);
+      d += ` C${px+(nx-px)*0.35},${y(ddArr[i-1])} ${px+(nx-px)*0.65},${y(ddArr[i])} ${nx},${y(ddArr[i])}`;
+    }
+    return d;
+  }
+
+  const ddSeries = [
+    {dd:aDD, color:'#2563eb', fill:true, label:'积极'},
+    {dd:gDD, color:'#dc2626', fill:true, label:'激进'},
+    {dd:hDD, color:'#d97706', fill:false, dashed:true, label:'沪深300'},
+    {dd:zDD, color:'#0891b2', fill:false, dashed:true, label:'中证800'},
+  ];
+
+  for (let s of ddSeries) {
+    let d = bpath(s.dd);
+    if (s.fill) {
+      let fid = 'dd' + s.color.replace('#','');
+      svgInner += `<defs><linearGradient id="${fid}" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0%" stop-color="${s.color}" stop-opacity="0.05"/>
+        <stop offset="100%" stop-color="${s.color}" stop-opacity="0.25"/>
+      </linearGradient></defs>`;
+      svgInner += `<path d="${d} L${x(n-1)},${y(yMin)} L${x(0)},${y(yMin)} Z" fill="url(#${fid})"/>`;
+    }
+    let sw = s.dashed ? 1.8 : 2.2, da = s.dashed ? '6,4' : 'none';
+    svgInner += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${sw}" stroke-dasharray="${da}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+
+  // Hover zones
+  for (let i = 0; i < n; i++) {
+    const barW = pw / Math.max(n-1,1) * 0.8;
+    svgInner += `<rect x="${x(i)-barW/2}" y="${mt}" width="${barW}" height="${ph}" fill="transparent" class="ch-dot-zone" data-idx="${i}"/>`;
+  }
+
+  svg.innerHTML = svgInner;
+
+  // Tooltip
+  const tip = document.createElement('div');
+  tip.className = 'chart-tooltip';
+  wrap.appendChild(tip);
+
+  // Crosshair group
+  const chGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  chGroup.setAttribute('id', 'ddChGroup');
+  chGroup.style.display = 'none';
+  chGroup.innerHTML = `<rect id="ddHlBar" x="0" y="${mt}" width="2" height="${ph}" fill="rgba(100,116,139,.08)"/>
+    <line id="ddChLine" x1="0" y1="${mt}" x2="0" y2="${H-mb}" stroke="rgba(100,116,139,.45)" stroke-width="1.2" stroke-dasharray="5,3">
+      <animate attributeName="stroke-dashoffset" from="16" to="0" dur="0.8s" repeatCount="indefinite"/>
+    </line>
+    <circle id="ddD0" r="5" fill="#fff" stroke="#2563eb" stroke-width="2.5" class="crosshair-dot"/>
+    <circle id="ddD1" r="5" fill="#fff" stroke="#dc2626" stroke-width="2.5" class="crosshair-dot"/>
+    <circle id="ddD2" r="4" fill="#fff" stroke="#d97706" stroke-width="2" class="crosshair-dot"/>
+    <circle id="ddD3" r="4" fill="#fff" stroke="#0891b2" stroke-width="2" class="crosshair-dot"/>`;
+  svg.appendChild(chGroup);
+
+  let rafId = null, lastIdx = -1;
+  svg._onMove = function(e) {
+    if (rafId) return;
+    rafId = requestAnimationFrame(() => {
+      rafId = null;
+      const rect = svg.getBoundingClientRect();
+      const scaleX = 800 / rect.width;
+      const mx = (e.clientX - rect.left) * scaleX;
+      if (mx < ml || mx > W - mr) { tip.style.display = 'none'; chGroup.style.display = 'none'; return; }
+      let idx = Math.round((mx - ml) / pw * Math.max(n-1,1));
+      idx = Math.max(0, Math.min(n-1, idx));
+      if (idx === lastIdx) return;
+      lastIdx = idx;
+      const cx = x(idx);
+
+      chGroup.style.display = '';
+      document.getElementById('ddHlBar').setAttribute('x', cx-1);
+      document.getElementById('ddChLine').setAttribute('x1', cx);
+      document.getElementById('ddChLine').setAttribute('x2', cx);
+      document.getElementById('ddD0').setAttribute('cx', cx);
+      document.getElementById('ddD0').setAttribute('cy', y(aDD[idx]));
+      document.getElementById('ddD1').setAttribute('cx', cx);
+      document.getElementById('ddD1').setAttribute('cy', y(gDD[idx]));
+      document.getElementById('ddD2').setAttribute('cx', cx);
+      document.getElementById('ddD2').setAttribute('cy', y(hDD[idx]));
+      document.getElementById('ddD3').setAttribute('cx', cx);
+      document.getElementById('ddD3').setAttribute('cy', y(zDD[idx]));
+
+      tip.innerHTML = `<div class="tt-date">📅 ${labels[idx]}</div>
+        <div class="tt-row"><span class="tt-dot" style="background:#2563eb"></span>积极 <b style="margin-left:auto;color:#60a5fa">${aDD[idx].toFixed(2)}%</b></div>
+        <div class="tt-row"><span class="tt-dot" style="background:#dc2626"></span>激进 <b style="margin-left:auto;color:#f87171">${gDD[idx].toFixed(2)}%</b></div>
+        <div class="tt-row"><span class="tt-dot" style="background:#d97706"></span>沪深300 <b style="margin-left:auto;color:#fbbf24">${hDD[idx].toFixed(2)}%</b></div>
+        <div class="tt-row"><span class="tt-dot" style="background:#0891b2"></span>中证800 <b style="margin-left:auto;color:#22d3ee">${zDD[idx].toFixed(2)}%</b></div>`;
+      tip.style.display = 'block';
+      let tx = e.clientX - rect.left + 16;
+      let ty = e.clientY - rect.top - 90;
+      if (tx + 180 > rect.width) tx = e.clientX - rect.left - 190;
+      if (ty < 0) ty = e.clientY - rect.top + 20;
+      tip.style.left = tx + 'px';
+      tip.style.top = ty + 'px';
+    });
+  };
+
+  svg._onLeave = function() {
+    tip.style.display = 'none';
+    chGroup.style.display = 'none';
+  };
+
+  svg.addEventListener('mousemove', svg._onMove);
+  svg.addEventListener('mouseleave', svg._onLeave);
+}
+
+// 启动
+render();
+</script>
+</body>
+</html>
